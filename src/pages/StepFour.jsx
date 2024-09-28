@@ -1,6 +1,20 @@
-import React from "react";
 
-const StepFour = () => {
+
+import React, { useState } from "react";
+
+const StepFour = ({ onNext }) => {
+  const [selectedVariant, setSelectedVariant] = useState("");
+
+  const handleVariantChange = (e) => {
+    setSelectedVariant(e.target.id);
+  };
+
+  const handleNextClick = () => {
+    if (selectedVariant) {
+      onNext(); // Переход к следующему шагу
+    }
+  };
+
   return (
     <div className="container">
       <div className="wrapper">
@@ -20,30 +34,22 @@ const StepFour = () => {
             </div>
           </div>
           <div className="question">
-            <h2>4. Занимательный вопрос</h2>
+            <h2>4. Хотите записаться прямо сейчас и получить скидку 15%?</h2>
             <ul className="level-variants">
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-1" />
-                <label htmlFor="variant-1">1</label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-2" />
-                <label htmlFor="variant-2">2</label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-3" />
-                <label htmlFor="variant-3">3</label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-4" />
-                <label htmlFor="variant-4">4</label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-5" />
-                <label htmlFor="variant-5">5</label>
-              </li>
+              {[1, 2, 3, 4, 5].map((num) => (
+                <li className="variant-wrapper" key={num}>
+                  <input
+                    required
+                    type="radio"
+                    name="variant"
+                    id={`variant-${num}`}
+                    onChange={handleVariantChange}
+                  />
+                  <label htmlFor={`variant-${num}`}>{num}</label>
+                </li>
+              ))}
             </ul>
-            <button type="button" id="next-btn" disabled>
+            <button type="button" onClick={handleNextClick} disabled={!selectedVariant}>
               Далее
             </button>
           </div>

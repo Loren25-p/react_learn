@@ -1,44 +1,55 @@
-import React from "react";
-import { Header } from "../components/Header";
-import { AppLable } from "../components/AppLable";
+import React, { useState } from "react";
+// import { Header } from "../components/Header";
+// import { AppLabel } from "../components/AppLabel";
+// import { AppButton } from "../components/AppButton";
+import { Header } from "../components/Header.jsx";
+import { AppLabel } from "../components/AppLable.jsx"; // Убедитесь, что регистр совпадает
+import { AppButton } from "../components/AppButton.jsx"; // Убедитесь, что регистр совпадает
+// import AppButton from './path/to/AppButton';
+
+
+
+
+
 
 const Welcome = () => {
+  const [username, setUsername] = useState('');
+  const [phone, setPhone] = useState('');
+
   return (
     <div className="container">
       <div className="wrapper">
         <div className="welcome">
-          <Header headerType="h1" headerText="салам"/>
+          <Header headerType="h1" headerText="Салам" />
           <form className="welcome__form">
-            <AppLable/>
-            <AppLable/>
-            {/* <label className="input-wrapper" htmlFor="username">
-              Ваше имя
-              <input
-                required
-                type="text"
-                name="username"
-                id="username"
-                placeholder="Ваш ответ"
-              />
-              <span id="error-message">
-                Введите номер в правильном формате например
-              </span>
-            </label>
-            <label className="input-wrapper" htmlFor="username">
-              Ваш номер
-              <input
-                required
-                type="tel"
-                name="phone"
-                id="phone"
-                placeholder="+998 9- --- -- -- "
-                pattern="^(?:\+998)?(?:\d{2})?(?:\d{7})$"
-              />
-              <span id="error-message">Введите номер в правильном формате</span>
-            </label> */}
-            <button disabled type="submit" id="next-btn">
+            <AppLabel 
+              labelText="Ваше имя" 
+              hasError={username.trim() === ""} 
+              errorText="Введите имя в правильном формате" 
+              id="username" 
+              isRequired={true} 
+              inputPlaceholder="Имя" 
+              inputType="text"
+              labelValue={username} 
+              labelChange={setUsername} 
+            />
+            <AppLabel
+              labelText="Ваш номер" 
+              errorText="Введите номер в правильном формате"
+              id="phone"
+              hasError={phone.trim() === ""}
+              isRequired={true}
+              inputPlaceholder={"+998 9- --- -- --"}
+              inputType="tel"
+              labelValue={phone} 
+              labelChange={setPhone} 
+            />
+            {/* <button type="submit" id="next-btn">
               Далее
-            </button>
+            </button> */}
+            {/* <AppButton buttonText="Далее" isDisabled={true}/> */}
+            <AppButton buttonText="Далее" isDisabled={false} />
+
           </form>
         </div>
       </div>
@@ -47,3 +58,6 @@ const Welcome = () => {
 };
 
 export default Welcome;
+
+
+

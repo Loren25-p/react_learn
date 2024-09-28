@@ -1,6 +1,19 @@
-import React from "react";
 
-const StepOne = () => {
+import React, { useState } from "react";
+
+const StepOne = ({ onNext }) => {
+  const [answer, setAnswer] = useState("");
+
+  const handleInputChange = (e) => {
+    setAnswer(e.target.value);
+  };
+
+  const handleNextClick = () => {
+    if (answer) {
+      onNext(); // Call the function to go to the next question
+    }
+  };
+
   return (
     <div className="container">
       <div className="wrapper">
@@ -20,19 +33,21 @@ const StepOne = () => {
             </div>
           </div>
           <div className="question">
-            <h2>1. Занимательный вопрос</h2>
+            <h2>1. назовите ваш любимый учебный центр по веб разработке в Ташкенте</h2>
             <label className="input-wrapper">
               <input
                 required
                 type="text"
                 name="answer"
                 placeholder="Ваш ответ"
+                value={answer}
+                onChange={handleInputChange}
               />
               <span id="error-message">
                 Введите номер в правильном формате например
               </span>
             </label>
-            <button type="button" disabled id="next-btn">
+            <button type="button" onClick={handleNextClick} disabled={!answer}>
               Далее
             </button>
           </div>
@@ -43,3 +58,4 @@ const StepOne = () => {
 };
 
 export default StepOne;
+

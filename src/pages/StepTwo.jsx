@@ -1,6 +1,19 @@
-import React from "react";
 
-const StepTwo = () => {
+import React, { useState } from "react";
+
+const StepTwo = ({ onNext }) => {
+  const [selectedVariant, setSelectedVariant] = useState("");
+
+  const handleVariantChange = (e) => {
+    setSelectedVariant(e.target.id);
+  };
+
+  const handleNextClick = () => {
+    if (selectedVariant) {
+      onNext(); // Переход к следующему шагу
+    }
+  };
+
   return (
     <div className="container">
       <div className="wrapper">
@@ -20,26 +33,22 @@ const StepTwo = () => {
             </div>
           </div>
           <div className="question">
-            <h2>1. Занимательный вопрос</h2>
+            <h2>2. Хочешь научиться web-разработке за 4 месяца?</h2>
             <ul className="variants">
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant-1" id="variant-1" />
-                <label htmlFor="variant-1">Ваш ответ</label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant-2" id="variant-2" />
-                <label htmlFor="variant-2">Ваш ответ</label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant-3" id="variant-3" />
-                <label htmlFor="variant-3">Ваш ответ</label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant-4" id="variant-4" />
-                <label htmlFor="variant-4">Ваш ответ</label>
-              </li>
+              {["да, очень", "нет, не хочу", "неактуально", "другое.."].map((answer, index) => (
+                <li className="variant-wrapper" key={index}>
+                  <input
+                    required
+                    type="radio"
+                    name="variant"
+                    id={`variant-${index + 1}`}
+                    onChange={handleVariantChange}
+                  />
+                  <label htmlFor={`variant-${index + 1}`}>{answer}</label>
+                </li>
+              ))}
             </ul>
-            <button type="button" disabled id="next-btn">
+            <button type="button" onClick={handleNextClick} disabled={!selectedVariant}>
               Далее
             </button>
           </div>

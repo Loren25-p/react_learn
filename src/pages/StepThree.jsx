@@ -1,6 +1,19 @@
-import React from "react";
 
-const StepThree = () => {
+import React, { useState } from "react";
+
+const StepThree = ({ onNext }) => {
+  const [selectedVariant, setSelectedVariant] = useState("");
+
+  const handleVariantChange = (e) => {
+    setSelectedVariant(e.target.id);
+  };
+
+  const handleNextClick = () => {
+    if (selectedVariant) {
+      onNext(); // Переход к следующему шагу
+    }
+  };
+
   return (
     <div className="container">
       <div className="wrapper">
@@ -20,38 +33,25 @@ const StepThree = () => {
             </div>
           </div>
           <div className="question">
-            <h2>3. Занимательный вопрос</h2>
+            <h2>3. Ваше настроение на сегодня:</h2>
             <ul className="emoji-variants">
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-1" />
-                <label htmlFor="variant-1">
-                  <img src="./img/laugh.png" alt="laugh" />
-                  <p>Ваш ответ 1</p>
-                </label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-2" />
-                <label htmlFor="variant-2">
-                  <img src="./img/hearts.png" alt="hearts" />
-                  <p>Ваш ответ 2</p>
-                </label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-3" />
-                <label htmlFor="variant-3">
-                  <img src="./img/smirk.png" alt="smirk" />
-                  <p>Ваш ответ 3</p>
-                </label>
-              </li>
-              <li className="variant-wrapper">
-                <input required type="radio" name="variant" id="variant-4" />
-                <label htmlFor="variant-4">
-                  <img src="./img/fright.png" alt="fright" />
-                  <p>Ваш ответ 4</p>
-                </label>
-              </li>
+              {["laugh", "hearts", "smirk", "fright"].map((emoji, index) => (
+                <li className="variant-wrapper" key={index}>
+                  <input
+                    required
+                    type="radio"
+                    name="variant"
+                    id={`variant-${index + 1}`}
+                    onChange={handleVariantChange}
+                  />
+                  <label htmlFor={`variant-${index + 1}`}>
+                    <img src={`./img/${emoji}.png`} alt={emoji} />
+                    <p>Ваш ответ {index + 1}</p>
+                  </label>
+                </li>
+              ))}
             </ul>
-            <button type="button" disabled id="next-btn">
+            <button type="button" onClick={handleNextClick} disabled={!selectedVariant}>
               Далее
             </button>
           </div>
