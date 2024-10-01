@@ -1,6 +1,5 @@
 
 import React, { useState } from "react";
-
 const StepOne = ({ onNext }) => {
   const [answer, setAnswer] = useState("");
 
@@ -10,7 +9,7 @@ const StepOne = ({ onNext }) => {
 
   const handleNextClick = () => {
     if (answer) {
-      onNext(); // Call the function to go to the next question
+      onNext();
     }
   };
 
@@ -47,6 +46,10 @@ const StepOne = ({ onNext }) => {
                 Введите номер в правильном формате например
               </span>
             </label>
+            {/* <AppButton buttonText="Далее"/> */}
+            {/* <button type="button" onClick={handleNextClick} disabled={!answer}>
+              Далее
+            </button> */}
             <button type="button" onClick={handleNextClick} disabled={!answer}>
               Далее
             </button>

@@ -1,55 +1,77 @@
 import React, { useState } from "react";
-// import { Header } from "../components/Header";
-// import { AppLabel } from "../components/AppLabel";
-// import { AppButton } from "../components/AppButton";
 import { Header } from "../components/Header.jsx";
-import { AppLabel } from "../components/AppLable.jsx"; // Убедитесь, что регистр совпадает
-import { AppButton } from "../components/AppButton.jsx"; // Убедитесь, что регистр совпадает
-// import AppButton from './path/to/AppButton';
+import { AppLabel } from "../components/AppLable.jsx"; 
+import AppButton from "../components/AppButton";
 
+const Welcome = ({ onNext }) => {
+  const phoneRegex = /^\+?\d{1,4}?[\s-]?\(?\d{1,4}\)?[\s-]?\d{1,4}[\s-]?\d{1,4}[\s-]?\d{1,9}$/;
+  const nameRegex = /^[a-zA-Zа-яА-ЯёЁ]{1,20}$/;
 
-
-
-
-
-const Welcome = () => {
   const [username, setUsername] = useState('');
   const [phone, setPhone] = useState('');
+  const [nameError, setNameError] = useState(false);
+  const [phoneError, setPhoneError] = useState(false);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const isNameValid = nameRegex.test(username);
+    const isPhoneValid = phoneRegex.test(phone);
+
+    setNameError(!isNameValid);
+    setPhoneError(!isPhoneValid);
+
+    if (isNameValid && isPhoneValid) {
+      console.log("Форма валидна. Переход к следующему шагу...");
+      onNext(); 
+    }
+  };
+
+  const handleUsernameChange = (e) => {
+    const value = e.target.value;
+    setUsername(value);
+    setNameError(!nameRegex.test(value));
+  };
+
+  const handlePhoneChange = (e) => {
+    const value = e.target.value;
+    setPhone(value);
+    setPhoneError(!phoneRegex.test(value));
+  };
 
   return (
     <div className="container">
       <div className="wrapper">
         <div className="welcome">
           <Header headerType="h1" headerText="Салам" />
-          <form className="welcome__form">
-            <AppLabel 
-              labelText="Ваше имя" 
-              hasError={username.trim() === ""} 
-              errorText="Введите имя в правильном формате" 
-              id="username" 
-              isRequired={true} 
-              inputPlaceholder="Имя" 
+          <form className="welcome__form" onSubmit={handleSubmit}>
+            <AppLabel
+              labelText="Ваше имя"
+              hasError={nameError}
+              errorText="Введите имя в правильном формате (1-20 букв)"
+              id="username"
+              isRequired={true}
+              inputPlaceholder="Имя"
               inputType="text"
-              labelValue={username} 
-              labelChange={setUsername} 
+              labelValue={username}
+              labelChange={handleUsernameChange} 
             />
             <AppLabel
-              labelText="Ваш номер" 
+              labelText="Ваш номер"
               errorText="Введите номер в правильном формате"
               id="phone"
-              hasError={phone.trim() === ""}
+              hasError={phoneError}
               isRequired={true}
               inputPlaceholder={"+998 9- --- -- --"}
               inputType="tel"
-              labelValue={phone} 
-              labelChange={setPhone} 
+              labelValue={phone}
+              labelChange={handlePhoneChange} 
             />
-            {/* <button type="submit" id="next-btn">
-              Далее
-            </button> */}
-            {/* <AppButton buttonText="Далее" isDisabled={true}/> */}
-            <AppButton buttonText="Далее" isDisabled={false} />
-
+            <AppButton
+              buttonText="Далее"
+              isDisabled={nameError || phoneError}
+              onClick={handleSubmit}
+            />
           </form>
         </div>
       </div>
@@ -58,6 +80,3 @@ const Welcome = () => {
 };
 
 export default Welcome;
-
-
-

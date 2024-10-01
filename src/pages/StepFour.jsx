@@ -11,7 +11,7 @@ const StepFour = ({ onNext }) => {
 
   const handleNextClick = () => {
     if (selectedVariant) {
-      onNext(); // Переход к следующему шагу
+      onNext(); 
     }
   };
 

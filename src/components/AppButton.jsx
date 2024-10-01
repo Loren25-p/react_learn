@@ -1,17 +1,9 @@
-import { isDisabled } from "@testing-library/user-event/dist/utils";
-import React from "react";
-
-export const AppButton = ({
-    buttonText,
-    buttonType = "button", // Значение по умолчанию
-    isDisabled,
-}) => {
-    return (
-        <button
-            disabled={isDisabled}
-            type={buttonType}
-            id="next-btn">
-            {buttonText}
-        </button>
-    );
+const AppButton = ({ buttonText, isDisabled, onClick }) => {
+  return (
+    <button onClick={onClick} disabled={isDisabled}>
+      {buttonText}
+    </button>
+  );
 };
+
+export default AppButton;

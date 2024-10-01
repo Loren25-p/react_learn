@@ -16,7 +16,7 @@ export const Header = ({ headerText, headerType }) => {
             case "h6":
                 return <h6>{headerText}</h6>;
             default:
-                return <h1>headerText</h1>; // Добавлено, чтобы избежать ошибок, если headerType не соответствует ни одному из случаев
+                return <h1>headerText</h1>; 
         }
     };
 
