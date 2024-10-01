@@ -53,7 +53,7 @@ export const AppLabel = ({
         type={inputType}
         name={id}
         id={id}
-        onChange={labelChange} // Передаем весь объект события
+        onChange={labelChange} 
         placeholder={inputPlaceholder}
       />
       {hasError && <span id="error-message">{errorText}</span>}
