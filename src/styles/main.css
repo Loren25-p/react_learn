@@ -8,6 +8,7 @@
 }
 
 body {
+  background-color: white;
   font-family: "TT Hoves";
   font-size: 16px;
   height: 100vh;
@@ -27,6 +28,7 @@ h1 {
 }
 
 h2 {
+  padding-top: 100px;
   color: #000;
   font-size: 22px;
   font-style: normal;
@@ -40,6 +42,8 @@ a {
 }
 
 .container {
+  margin-top: 45px;
+  margin-bottom: 45px;
   padding: 0 45px;
   height: 100%;
   display: flex;
